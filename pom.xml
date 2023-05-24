@@ -6,6 +6,7 @@
         <module>app-config-data</module>
         <module>twitter-to-kafka-service</module>
         <module>kafka</module>
+        <module>common-config</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -29,6 +30,8 @@
         <httpclient.version>4.5.13</httpclient.version>
         <json.version>20220320</json.version>
         <avro.version>1.10.2</avro.version>
+        <spring-kafka.version>3.0.7</spring-kafka.version>
+        <spring-retry.version>2.0.1</spring-retry.version>
     </properties>
 
     <dependencyManagement>
@@ -36,6 +39,11 @@
             <dependency>
                 <groupId>com.microservices.demo</groupId>
                 <artifactId>app-config-data</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.microservices.demo</groupId>
+                <artifactId>common-config</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -48,6 +56,11 @@
                 <artifactId>spring-boot-starter-test</artifactId>
                 <version>${spring-boot.version}</version>
                 <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-webflux</artifactId>
+                <version>${spring-boot.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.twitter4j</groupId>
@@ -74,6 +87,16 @@
                 <groupId>org.apache.avro</groupId>
                 <artifactId>avro</artifactId>
                 <version>${avro.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.kafka</groupId>
+                <artifactId>spring-kafka</artifactId>
+                <version>${spring-kafka.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.retry</groupId>
+                <artifactId>spring-retry</artifactId>
+                <version>${spring-retry.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
