@@ -17,7 +17,7 @@ import java.util.Map;
 @Component
 @Slf4j
 @RequiredArgsConstructor
-@ConditionalOnExpression("${twitter.enable-v2-tweets} && not ${twitter.enable-mock-tweets}")
+@ConditionalOnProperty(name = "twitter.enable-mock-tweets", havingValue = "false")
 public class TwitterV2KafkaStreamRunner implements StreamRunner {
     private final TwitterToKafkaServiceConfigData twitterToKafkaServiceConfigData;
     private final TwitterV2StreamHelper twitterV2StreamHelper;

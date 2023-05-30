@@ -1,0 +1,49 @@
+version: '3.7'
+services:
+  twitter-to-kafka-service:
+    image: ${GROUP_ID}/twitter.to.kafka.service:${SERVICE_VERSION:-latest}
+    ports:
+      - "5005:5005"
+    volumes:
+      - "./docker-logs:/workspace/twitter-to-kafka-service/logs"
+    environment:
+      - "JAVA_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005 -Xms128m -Xmx256m"
+      - "LOGGING_LEVEL_COM_MICROSERVICES_DEMO=info"
+      - "LOGGING_LEVEL_ROOT=info"
+      - "KAFKA_TOPIC-NAME=twitter-topic"
+      - "KAFKA_BOOTSTRAP-SERVERS=kafka-broker-1:9092, kafka-broker-2:9092, kafka-broker-3:9092"
+      - "KAFKA_SCHEMA-REGISTRY-URL=http://schema-registry:8083"
+      - twitter_twitter-keywords[0]=Java
+      - twitter_twitter-keywords[1]=Microservices
+      - twitter_twitter-keywords[2]=Spring
+      - twitter_twitter-keywords[3]=Kafka
+      - twitter_twitter-keywords[4]=Elasticsearch
+      - twitter_welcome-message=Hello microservices!
+      - twitter_enable-mock-tweets=true
+      - twitter_mock-min-tweet-length=5
+      - twitter_mock-max-tweet-length=15
+      - twitter_mock-sleep-ms=10000
+      - kafka_topic-names-to-create[0]=twitter-topic
+      - twitter_twitter-v2-base-url=https://api.twitter.com/2/tweets/search/stream?tweet.fields=created_at&expansions=author_id
+      - twitter_twitter-v2-rules-base-url=https://api.twitter.com/2/tweets/search/stream/rules
+      - twitter_twitter-v2-bearer-token=AAAAAAAAAAAAAAAAAAAAAM1wngEAAAAAqe5yA0pInbbQMxJPX%2B2bUxnwn94%3DJEME57I48ZHL8NtwA4pz25k29wHUjjFXYxu1O18Hy4PaM4dNa1
+      - retry_initial-interval-ms=1000
+      - retry_max-interval-ms=10000
+      - retry_multiplier=2.0
+      - retry_maxAttempts=3
+      - retry_sleep-time-ms=2000
+      - kafka_schema-registry-url-key=schema.registry.url
+      - kafka_num-of-partitions=3
+      - kafka_replication-factor=3
+      - producer_key-serializer-class=org.apache.kafka.common.serialization.LongSerializer
+      - producer_value-serializer-class=io.confluent.kafka.serializers.KafkaAvroSerializer
+      - producer_compression-type=snappy
+      - producer_acks=all
+      - producer_batch-size=16384
+      - producer_batch-size-boost-factor=100
+      - producer_linger-ms=5
+      - producer_request-timeout-ms=60000
+      - producer_retry-count=5
+      - server_port=8087
+    networks:
+      - ${GLOBAL_NETWORK:-services}

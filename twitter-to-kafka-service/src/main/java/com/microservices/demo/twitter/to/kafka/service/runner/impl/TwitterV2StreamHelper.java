@@ -40,7 +40,7 @@ import java.util.Map;
 @Component
 @Slf4j
 @RequiredArgsConstructor
-@ConditionalOnExpression("${twitter.enable-v2-tweets} && not ${twitter.enable-mock-tweets}")
+@ConditionalOnProperty(name = "twitter.enable-mock-tweets", havingValue = "false")
 public class TwitterV2StreamHelper {
     private final TwitterToKafkaServiceConfigData twitterToKafkaServiceConfigData;
 
