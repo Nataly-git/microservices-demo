@@ -26,7 +26,7 @@ services:
       - kafka_topic-names-to-create[0]=twitter-topic
       - twitter_twitter-v2-base-url=https://api.twitter.com/2/tweets/search/stream?tweet.fields=created_at&expansions=author_id
       - twitter_twitter-v2-rules-base-url=https://api.twitter.com/2/tweets/search/stream/rules
-      - twitter_twitter-v2-bearer-token=AAAAAAAAAAAAAAAAAAAAAM1wngEAAAAAqe5yA0pInbbQMxJPX%2B2bUxnwn94%3DJEME57I48ZHL8NtwA4pz25k29wHUjjFXYxu1O18Hy4PaM4dNa1
+      - twitter_twitter-v2-bearer-token=****
       - retry_initial-interval-ms=1000
       - retry_max-interval-ms=10000
       - retry_multiplier=2.0
